@@ -27,6 +27,6 @@ public class Buah {
     // Override toString() untuk ditampilkan di TextView
     @Override
     public String toString() {
-        return this.nama + " (" + this.jenis + ")";
+        return "ID: " + this.id + "\n" + this.nama + " (" + this.jenis + ")";
     }
 }

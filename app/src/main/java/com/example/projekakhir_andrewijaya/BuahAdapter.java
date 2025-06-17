@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -49,13 +49,18 @@ public class BuahAdapter extends ArrayAdapter<Buah> {
         // Menampilkan informasi buah
         txtInfo.setText(buah.toString());
 
-        // Tombol Edit (Anda bisa menambahkan logika untuk pindah ke halaman edit)
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Contoh: Menampilkan Toast dengan ID buah yang akan diedit
-                Toast.makeText(context, "Edit buah ID: " + buah.getId(), Toast.LENGTH_SHORT).show();
-                // Di sini Anda bisa membuat Intent untuk pindah ke Activity Edit
+                // Membuat intent untuk membuka EditDataActivity
+                Intent intent = new Intent(context, EditDataActivity.class);
+
+                // Mengirim data buah saat ini ke EditDataActivity
+                intent.putExtra("buah_id", buah.getId());
+                intent.putExtra("buah_nama", buah.getNama());
+                intent.putExtra("buah_jenis", buah.getJenis());
+
+                context.startActivity(intent);
             }
         });
 
