@@ -81,6 +81,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Memeriksa apakah username sudah ada
+     */
+    public boolean checkUsernameExists(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS + " WHERE " + COL_USERNAME + " = ?", new String[]{username});
+        int count = cursor.getCount();
+        cursor.close();
+        return count > 0;
+    }
+
+    /**
      * Mengambil semua data pengguna dari tabel users
      */
     public Cursor getAllUsers() {
@@ -88,7 +99,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return db.rawQuery("SELECT * FROM " + TABLE_USERS, null);
     }
 
-    // --- METODE-METODE UNTUK BUAH (INI TETAP SAMA, TIDAK PERLU DIUBAH) ---
+    /**
+     * Memperbarui data pengguna (contoh: hanya password)
+     */
+    public boolean updateUser(String id, String newPassword) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_PASSWORD, newPassword);
+        int result = db.update(TABLE_USERS, values, COL_USER_ID + " = ?", new String[]{id});
+        return result > 0;
+    }
+
+    /**
+     * Menghapus pengguna berdasarkan ID
+     */
+    public Integer deleteUser(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_USERS, COL_USER_ID + " = ?", new String[]{id});
+    }
 
     public boolean insertData(String namaBuah, String jenisBuah) {
         SQLiteDatabase db = this.getWritableDatabase();

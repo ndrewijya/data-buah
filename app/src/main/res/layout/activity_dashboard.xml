@@ -71,33 +71,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lihat_data_button"
-                android:layout_width="0dp"
-                android:layout_height="120dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="?attr/colorPrimary"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_lihat_daftar_buah"
-                    app:tint="?attr/colorOnPrimary" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Lihat Data"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/maps_button"
                 android:layout_width="0dp"
                 android:layout_height="120dp"
@@ -120,33 +93,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Peta"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lihat_pengguna_button"
-                android:layout_width="0dp"
-                android:layout_height="120dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="?attr/colorPrimary"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_lihat_pengguna"
-                    app:tint="?attr/colorOnPrimary" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Lihat Pengguna"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp" />
             </LinearLayout>
