@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import java.util.List;
+import android.content.Intent;
 
 public class PenggunaAdapter extends ArrayAdapter<Pengguna> {
     private Context context;
@@ -40,9 +41,18 @@ public class PenggunaAdapter extends ArrayAdapter<Pengguna> {
 
         txtInfo.setText("ID: " + pengguna.getId() + "\nUsername: " + pengguna.getUsername());
 
-        btnEdit.setOnClickListener(v -> {
-            // Fitur Edit bisa ditambahkan di sini nanti
-            Toast.makeText(context, "Fitur Edit untuk pengguna belum dibuat.", Toast.LENGTH_SHORT).show();
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Membuat intent untuk membuka EditPenggunaActivity
+                Intent intent = new Intent(context, EditPenggunaActivity.class);
+
+                // Mengirim ID dan Username pengguna saat ini ke EditPenggunaActivity
+                intent.putExtra("user_id", pengguna.getId());
+                intent.putExtra("user_username", pengguna.getUsername());
+
+                context.startActivity(intent);
+            }
         });
 
         btnDelete.setOnClickListener(v -> {

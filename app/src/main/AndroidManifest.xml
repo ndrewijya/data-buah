@@ -55,6 +55,10 @@
         <activity
             android:name=".EditDataActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".EditPenggunaActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
