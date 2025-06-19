@@ -5,37 +5,21 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DashboardActivity">
+    tools:context=".DashboardActivity"
+    tools:openDrawer="start">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#ECECEC">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="#3F51B5"
-            android:gravity="center_vertical"
-            android:padding="16dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/menu_button"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_sort"
-                app:tint="@color/white"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dashboard"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_marginStart="16dp"/>
-        </LinearLayout>
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
         <GridLayout
             android:layout_width="match_parent"
@@ -45,95 +29,46 @@
 
             <LinearLayout
                 android:id="@+id/sensor_button"
-                android:layout_width="0dp"
-                android:layout_height="120dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="?attr/colorPrimary"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="vertical">
-
+                style="@style/DashboardCard">
                 <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_sensor"
-                    app:tint="?attr/colorOnPrimary" />
-
+                    style="@style/DashboardIcon"
+                    android:src="@drawable/ic_sensor" />
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Sensor"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp" />
+                    style="@style/DashboardText"
+                    android:text="Sensor" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/maps_button"
-                android:layout_width="0dp"
-                android:layout_height="120dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="?attr/colorPrimary"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="vertical">
-
+                style="@style/DashboardCard">
                 <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_peta_lokasi"
-                    app:tint="?attr/colorOnPrimary" />
-
+                    style="@style/DashboardIcon"
+                    android:src="@drawable/ic_peta_lokasi" />
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Peta"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp" />
+                    style="@style/DashboardText"
+                    android:text="Peta" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/voice_to_text_button"
-                android:layout_width="0dp"
-                android:layout_height="120dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="?attr/colorPrimary"
-                android:clickable="true"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="vertical">
-
+                style="@style/DashboardCard">
                 <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_voice"
-                    app:tint="?attr/colorOnPrimary" />
-
+                    style="@style/DashboardIcon"
+                    android:src="@drawable/ic_voice" />
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Suara ke Teks"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp" />
+                    style="@style/DashboardText"
+                    android:text="Suara ke Teks" />
             </LinearLayout>
-        </GridLayout>
 
+        </GridLayout>
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/nav_list"
-        android:layout_width="240dp"
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/white"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"/>
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/nav_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

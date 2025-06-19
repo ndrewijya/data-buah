@@ -2,11 +2,15 @@ package com.example.projekakhir_andrewijaya;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class TambahDataActivity extends AppCompatActivity {
 
@@ -19,8 +23,16 @@ public class TambahDataActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tambah_data);
 
-        dbHelper = new DatabaseHelper(this);
+        // Setup Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_tambah_data);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Tambah Buah Baru");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
+        // Inisialisasi komponen lain
+        dbHelper = new DatabaseHelper(this);
         etNamaBuah = findViewById(R.id.et_nama_buah);
         etJenisBuah = findViewById(R.id.et_jenis_buah);
         btnSimpan = findViewById(R.id.btn_simpan);
@@ -31,6 +43,16 @@ public class TambahDataActivity extends AppCompatActivity {
                 simpanData();
             }
         });
+    }
+
+    // Metode untuk menangani klik pada tombol kembali di Toolbar
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // Kembali ke halaman sebelumnya
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void simpanData() {
@@ -46,7 +68,7 @@ public class TambahDataActivity extends AppCompatActivity {
 
         if (isInserted) {
             Toast.makeText(this, "Data berhasil ditambahkan", Toast.LENGTH_SHORT).show();
-            finish(); // Kembali ke halaman daftar buah
+            finish();
         } else {
             Toast.makeText(this, "Gagal menambahkan data", Toast.LENGTH_SHORT).show();
         }

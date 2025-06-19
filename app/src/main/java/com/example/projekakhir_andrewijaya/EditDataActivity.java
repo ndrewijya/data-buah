@@ -3,38 +3,48 @@ package com.example.projekakhir_andrewijaya;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class EditDataActivity extends AppCompatActivity {
 
     private EditText etEditNamaBuah, etEditJenisBuah;
     private Button btnUpdate;
     private DatabaseHelper dbHelper;
-    private String buahId; // Untuk menyimpan ID buah yang akan diedit
+    private String buahId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_data);
 
-        dbHelper = new DatabaseHelper(this);
+        // Setup Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_edit_data);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Edit Buah");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
+        // Inisialisasi komponen lain
+        dbHelper = new DatabaseHelper(this);
         etEditNamaBuah = findViewById(R.id.et_edit_nama_buah);
         etEditJenisBuah = findViewById(R.id.et_edit_jenis_buah);
         btnUpdate = findViewById(R.id.btn_update);
 
-        // Mengambil data yang dikirim dari BuahAdapter
+        // Mengambil data dari intent (tidak berubah)
         Intent intent = getIntent();
         buahId = intent.getStringExtra("buah_id");
         String namaLama = intent.getStringExtra("buah_nama");
         String jenisLama = intent.getStringExtra("buah_jenis");
 
-        // Menampilkan data lama di form
         etEditNamaBuah.setText(namaLama);
         etEditJenisBuah.setText(jenisLama);
 
@@ -44,6 +54,16 @@ public class EditDataActivity extends AppCompatActivity {
                 updateData();
             }
         });
+    }
+
+    // Metode untuk menangani klik pada tombol kembali di Toolbar
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // Kembali ke halaman sebelumnya
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void updateData() {
@@ -59,7 +79,7 @@ public class EditDataActivity extends AppCompatActivity {
 
         if (isUpdated) {
             Toast.makeText(this, "Data berhasil diperbarui", Toast.LENGTH_SHORT).show();
-            finish(); // Kembali ke halaman daftar buah
+            finish();
         } else {
             Toast.makeText(this, "Gagal memperbarui data", Toast.LENGTH_SHORT).show();
         }

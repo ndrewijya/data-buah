@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_home"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/nav_sensor"
+            android:icon="@drawable/ic_sensor"
+            android:title="Sensor" />
+        <item
+            android:id="@+id/nav_lihat_data_buah"
+            android:icon="@drawable/ic_lihat_daftar_buah"
+            android:title="Data Buah" />
+        <item
+            android:id="@+id/nav_lihat_pengguna"
+            android:icon="@drawable/baseline_person_24"
+            android:title="Data Pengguna" />
+        <item
+            android:id="@+id/nav_peta"
+            android:icon="@drawable/ic_peta_lokasi"
+            android:title="Peta" />
+        <item
+            android:id="@+id/nav_voice"
+            android:icon="@drawable/ic_voice"
+            android:title="Konversi Suara" />
+    </group>
+    <item android:title="Akun">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@android:drawable/ic_lock_power_off"
+                android:title="Logout" />
+        </menu>
+    </item>
+</menu>

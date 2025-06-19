@@ -1,32 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
-    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".VoiceToTextActivity">
 
-    <TextView
-        android:id="@+id/tv_hasil_suara"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="Hasil konversi suara akan muncul di sini..."
-        android:textSize="20sp"
-        android:textAlignment="center"
-        android:textColor="?android:attr/textColorPrimary"
-        android:layout_above="@id/btn_bicara"/>
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:titleTextColor="?attr/colorOnPrimary" />
 
-    <ImageButton
-        android:id="@+id/btn_bicara"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/ic_voice"
-        android:scaleType="fitCenter"
-        android:contentDescription="Tombol Bicara"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_hasil_suara"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_bicara"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="32dp"
+            android:text="Hasil konversi suara akan muncul di sini..."
+            android:textAlignment="center"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/btn_bicara"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ic_voice"
+            android:contentDescription="Tombol Bicara"
+            android:scaleType="fitCenter" />
+
+    </RelativeLayout>
+
+</LinearLayout>

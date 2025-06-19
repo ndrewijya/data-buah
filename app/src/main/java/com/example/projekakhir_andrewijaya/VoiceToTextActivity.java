@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Locale;
+import androidx.appcompat.widget.Toolbar;
 
 public class VoiceToTextActivity extends AppCompatActivity {
 
@@ -26,6 +27,14 @@ public class VoiceToTextActivity extends AppCompatActivity {
 
         tvHasilSuara = findViewById(R.id.tv_hasil_suara);
         btnBicara = findViewById(R.id.btn_bicara);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Fitur Konversi Suara");
+        }
 
         btnBicara.setOnClickListener(new View.OnClickListener() {
             @Override

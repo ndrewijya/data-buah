@@ -3,13 +3,16 @@ package com.example.projekakhir_andrewijaya;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class EditPenggunaActivity extends AppCompatActivity {
 
@@ -17,25 +20,31 @@ public class EditPenggunaActivity extends AppCompatActivity {
     private EditText etEditPassword;
     private Button btnUpdate;
     private DatabaseHelper dbHelper;
-    private String userId; // Untuk menyimpan ID pengguna yang akan diedit
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_pengguna);
 
-        dbHelper = new DatabaseHelper(this);
+        // Setup Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar_edit_pengguna);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Edit Password");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
+        // Inisialisasi komponen lain
+        dbHelper = new DatabaseHelper(this);
         tvUsernameInfo = findViewById(R.id.tv_username_info);
         etEditPassword = findViewById(R.id.et_edit_password_pengguna);
         btnUpdate = findViewById(R.id.btn_update_pengguna);
 
-        // Mengambil data yang dikirim dari PenggunaAdapter
         Intent intent = getIntent();
         userId = intent.getStringExtra("user_id");
         String username = intent.getStringExtra("user_username");
 
-        // Menampilkan username yang sedang diedit
         tvUsernameInfo.setText("Username: " + username);
 
         btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +53,16 @@ public class EditPenggunaActivity extends AppCompatActivity {
                 updatePassword();
             }
         });
+    }
+
+    // Metode untuk menangani klik pada tombol kembali di Toolbar
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // Kembali ke halaman sebelumnya
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void updatePassword() {
@@ -58,7 +77,7 @@ public class EditPenggunaActivity extends AppCompatActivity {
 
         if (isUpdated) {
             Toast.makeText(this, "Password berhasil diperbarui", Toast.LENGTH_SHORT).show();
-            finish(); // Kembali ke halaman daftar pengguna
+            finish();
         } else {
             Toast.makeText(this, "Gagal memperbarui password", Toast.LENGTH_SHORT).show();
         }

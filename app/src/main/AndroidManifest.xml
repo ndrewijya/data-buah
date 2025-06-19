@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -21,48 +21,31 @@
         android:theme="@style/Theme.ProjekAkhir_AndreWijaya"
         tools:targetApi="31">
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+        <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DashboardActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SensorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MapsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LihatDataActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LihatPenggunaActivity"
-            android:exported="false" />
 
-        <activity
-            android:name=".TambahDataActivity"
-            android:exported="false" />
+        <activity android:name=".SensorActivity" android:parentActivityName=".DashboardActivity" />
 
-        <activity
-            android:name=".EditDataActivity"
-            android:exported="false" />
+        <activity android:name=".MapsActivity" android:parentActivityName=".DashboardActivity" />
 
-        <activity
-            android:name=".EditPenggunaActivity"
-            android:exported="false" />
+        <activity android:name=".LihatDataActivity" android:parentActivityName=".DashboardActivity" />
 
-        <activity
-            android:name=".VoiceToTextActivity"
-            android:exported="false" />
+        <activity android:name=".LihatPenggunaActivity" android:parentActivityName=".DashboardActivity" />
+
+        <activity android:name=".TambahDataActivity" android:parentActivityName=".LihatDataActivity" />
+
+        <activity android:name=".EditDataActivity" android:parentActivityName=".LihatDataActivity" />
+
+        <activity android:name=".EditPenggunaActivity" android:parentActivityName=".LihatPenggunaActivity" />
+
+        <activity android:name=".VoiceToTextActivity" android:parentActivityName=".DashboardActivity" />
+
+        <activity android:name=".RegisterActivity" android:parentActivityName=".MainActivity" />
+        <activity android:name=".DashboardActivity" />
+
     </application>
-
 </manifest>
