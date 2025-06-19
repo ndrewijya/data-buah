@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
-
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -58,6 +58,10 @@
 
         <activity
             android:name=".EditPenggunaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".VoiceToTextActivity"
             android:exported="false" />
     </application>
 

@@ -98,7 +98,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/settings_button"
+                android:id="@+id/voice_to_text_button"
                 android:layout_width="0dp"
                 android:layout_height="120dp"
                 android:layout_columnWeight="1"
@@ -112,14 +112,14 @@
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/ic_settings"
+                    android:src="@drawable/ic_voice"
                     app:tint="?attr/colorOnPrimary" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Pengaturan"
+                    android:text="Suara ke Teks"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp" />
             </LinearLayout>

@@ -21,11 +21,9 @@ public class DashboardActivity extends AppCompatActivity {
 
     // Tombol di GridLayout yang tersisa
     private LinearLayout sensorButton;
-    private LinearLayout settingsButton;
+    private LinearLayout voiceToTextButton;
     private LinearLayout mapsButton;
-    // Variabel untuk lihatDataBuahButton dan lihatPenggunaButton telah dihapus
 
-    // Item untuk menu samping (Navigation Drawer) tetap lengkap
     private String[] drawerItems = {
             "Dashboard", "Sensor", "Lihat Data Buah", "Lihat Pengguna", "Peta Lokasi", "Logout"
     };
@@ -40,9 +38,8 @@ public class DashboardActivity extends AppCompatActivity {
         navList = findViewById(R.id.nav_list);
         menuButton = findViewById(R.id.menu_button);
         sensorButton = findViewById(R.id.sensor_button);
-        settingsButton = findViewById(R.id.settings_button);
+        voiceToTextButton = findViewById(R.id.voice_to_text_button);
         mapsButton = findViewById(R.id.maps_button);
-        // Referensi ke tombol yang dihapus sudah dihilangkan
 
         setupNavDrawer();
         setupFeatureButtons();
@@ -74,8 +71,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void setupFeatureButtons() {
         sensorButton.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, SensorActivity.class)));
-        settingsButton.setOnClickListener(v -> Toast.makeText(DashboardActivity.this, "Fitur Pengaturan diklik", Toast.LENGTH_SHORT).show());
+        voiceToTextButton.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, VoiceToTextActivity.class)));
         mapsButton.setOnClickListener(v -> startActivity(new Intent(DashboardActivity.this, MapsActivity.class)));
-        // Listener untuk tombol yang dihapus sudah dihilangkan
     }
 }
