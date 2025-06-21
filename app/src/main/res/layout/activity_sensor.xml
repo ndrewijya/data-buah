@@ -25,6 +25,7 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/light_sensor_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sensor Cahaya"
@@ -48,6 +49,7 @@
             android:textStyle="italic" />
 
         <TextView
+            android:id="@+id/accelerometer_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sensor Gerak (Akselerometer)"
