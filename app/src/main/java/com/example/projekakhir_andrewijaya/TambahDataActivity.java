@@ -26,7 +26,7 @@ public class TambahDataActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_tambah_data);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Tambah Buah Baru");
+            getSupportActionBar().setTitle("Tambah Data Buah Baru");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
@@ -48,17 +48,16 @@ public class TambahDataActivity extends AppCompatActivity {
             Toast.makeText(this, "Semua kolom harus diisi", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        // --- INI BAGIAN YANG DIPERBAIKI ---
-        // Menggunakan nama method 'insertBuah' yang baru
-        boolean isInserted = dbHelper.insertBuah(nama, jenis);
-        // ---------------------------------
-
-        if (isInserted) {
-            Toast.makeText(this, "Data berhasil ditambahkan", Toast.LENGTH_SHORT).show();
-            finish(); // Kembali ke halaman daftar buah
+        if (dbHelper.checkBuahExists(nama, jenis)) {
+            Toast.makeText(this, "Buah dengan nama dan jenis yang sama sudah ada!", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "Gagal menambahkan data", Toast.LENGTH_SHORT).show();
+            boolean isInserted = dbHelper.insertBuah(nama, jenis);
+            if (isInserted) {
+                Toast.makeText(this, "Data berhasil ditambahkan", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(this, "Gagal menambahkan data", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

@@ -124,7 +124,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // =================================================================
     // --- SEMUA METODE UNTUK BUAH (CRUD) ---
     // =================================================================
+    
+    public boolean checkBuahExists(String nama, String jenis) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Kita akan membuat pencarian tidak case-sensitive dengan mengubah semuanya ke huruf besar
+        String query = "SELECT * FROM " + TABLE_BUAH + " WHERE UPPER(" + COL_BUAH_NAMA + ") = ? AND UPPER(" + COL_BUAH_JENIS + ") = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{nama.toUpperCase(), jenis.toUpperCase()});
 
+        int count = cursor.getCount();
+        cursor.close();
+        db.close();
+
+        return count > 0;
+    }
     public boolean insertBuah(String namaBuah, String jenisBuah) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
