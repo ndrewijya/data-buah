@@ -10,12 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.List;
+
+/*Anggota Kelompok:
+ * 1. Andre Wijaya (221011400791)
+ * 2. Iqbal Isya Fathurrohman (221011401657)
+ * 3. Novandra Anugrah (221011400778)
+ */
 
 public class PenggunaAdapter extends RecyclerView.Adapter<PenggunaAdapter.PenggunaViewHolder> {
 

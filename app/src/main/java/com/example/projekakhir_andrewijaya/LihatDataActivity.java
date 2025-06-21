@@ -7,18 +7,21 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
 import java.util.Locale;
+
+/*Anggota Kelompok:
+ * 1. Andre Wijaya (221011400791)
+ * 2. Iqbal Isya Fathurrohman (221011401657)
+ * 3. Novandra Anugrah (221011400778)
+ */
 
 public class LihatDataActivity extends AppCompatActivity {
 

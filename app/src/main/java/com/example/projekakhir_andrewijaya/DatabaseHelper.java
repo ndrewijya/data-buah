@@ -5,8 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
+
+/*Anggota Kelompok:
+ * 1. Andre Wijaya (221011400791)
+ * 2. Iqbal Isya Fathurrohman (221011401657)
+ * 3. Novandra Anugrah (221011400778)
+ */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 

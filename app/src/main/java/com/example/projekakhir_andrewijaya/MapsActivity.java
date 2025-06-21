@@ -9,24 +9,27 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.BoundingBox;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+/*Anggota Kelompok:
+ * 1. Andre Wijaya (221011400791)
+ * 2. Iqbal Isya Fathurrohman (221011401657)
+ * 3. Novandra Anugrah (221011400778)
+ */
 
 public class MapsActivity extends AppCompatActivity {
 

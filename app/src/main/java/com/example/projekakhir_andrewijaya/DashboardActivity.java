@@ -14,8 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.google.android.material.navigation.NavigationView;
+
+/*Anggota Kelompok:
+ * 1. Andre Wijaya (221011400791)
+ * 2. Iqbal Isya Fathurrohman (221011401657)
+ * 3. Novandra Anugrah (221011400778)
+ */
 
 public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
