@@ -37,7 +37,7 @@
             android:layout_alignParentBottom="true"
             android:layout_margin="16dp"
             android:src="@android:drawable/ic_input_add"
-            app:tint="@android:color/white"
+            app:tint="@android:color/holo_blue_dark"
             android:contentDescription="Tombol untuk menambah data buah baru" />
 
     </RelativeLayout>

@@ -3,9 +3,10 @@ package com.example.projekakhir_andrewijaya;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
+import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
@@ -45,10 +48,23 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         // Panggil metode untuk setup tombol di dashboard
         setupFeatureButtons();
+
+        // Mengambil header view dari navigation view
+        View headerView = navigationView.getHeaderView(0);
+        // Mencari tombol close di dalam header view
+        ImageButton buttonClose = headerView.findViewById(R.id.button_close_sidebar);
+
+        // Menambahkan listener klik pada tombol close
+        buttonClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Perintah untuk menutup navigation drawer
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
     }
 
     private void setupFeatureButtons() {
-        // PERBAIKAN: Inisialisasi dan listener hanya untuk 3 tombol
         sensorButton = findViewById(R.id.sensor_button);
         mapsButton = findViewById(R.id.maps_button);
         voiceToTextButton = findViewById(R.id.voice_to_text_button);
