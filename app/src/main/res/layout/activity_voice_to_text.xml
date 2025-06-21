@@ -1,47 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="#F5F5F5"
     tools:context=".VoiceToTextActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_voice"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:titleTextColor="?attr/colorOnPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Konversi Suara ke Teks"
+        app:titleTextColor="@android:color/white" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_voice"
+        android:gravity="center"
+        android:orientation="vertical"
         android:padding="24dp">
 
         <TextView
-            android:id="@+id/tv_hasil_suara"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/btn_bicara"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="32dp"
-            android:text="Hasil konversi suara akan muncul di sini..."
+            android:layout_marginTop="24dp"
+            android:text="Tekan ikon di bawah untuk mulai berbicara"
             android:textAlignment="center"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <ImageButton
             android:id="@+id/btn_bicara"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/ic_voice"
-            android:contentDescription="Tombol Bicara"
-            android:scaleType="fitCenter" />
+            android:layout_marginTop="16dp"
+            android:background="@drawable/mic_button_background"
+            android:contentDescription="Tombol Mikrofon"
+            android:elevation="4dp"
+            android:padding="24dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_voice"
+            app:tint="@android:color/white" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_hasil_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Hasil Konversi:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
-</LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tv_hasil_suara"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/btn_copy_text"
+                    android:layout_centerVertical="true"
+                    android:text="Hasil akan muncul di sini..."
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <ImageButton
+                    android:id="@+id/btn_copy_text"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_copy"
+                    app:tint="?attr/colorPrimary"
+                    android:contentDescription="Salin Teks" />
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</RelativeLayout>
