@@ -1,19 +1,27 @@
 package com.example.projekakhir_andrewijaya;
 
 public class Pengguna {
-    private String id;
+    private int id;
     private String username;
+    private String password;
 
-    public Pengguna(String id, String username) {
+    // Constructor untuk membaca data dari database
+    public Pengguna(int id, String username, String password) {
         this.id = id;
         this.username = username;
+        this.password = password;
     }
 
-    public String getId() {
+    // Getter untuk setiap field
+    public int getId() {
         return id;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

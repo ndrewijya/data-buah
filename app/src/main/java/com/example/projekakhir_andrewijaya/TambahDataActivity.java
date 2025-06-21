@@ -3,7 +3,6 @@ package com.example.projekakhir_andrewijaya;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -31,28 +30,14 @@ public class TambahDataActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Inisialisasi komponen lain
         dbHelper = new DatabaseHelper(this);
         etNamaBuah = findViewById(R.id.et_nama_buah);
         etJenisBuah = findViewById(R.id.et_jenis_buah);
         btnSimpan = findViewById(R.id.btn_simpan);
 
-        btnSimpan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                simpanData();
-            }
+        btnSimpan.setOnClickListener(v -> {
+            simpanData();
         });
-    }
-
-    // Metode untuk menangani klik pada tombol kembali di Toolbar
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // Kembali ke halaman sebelumnya
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void simpanData() {
@@ -64,13 +49,25 @@ public class TambahDataActivity extends AppCompatActivity {
             return;
         }
 
-        boolean isInserted = dbHelper.insertData(nama, jenis);
+        // --- INI BAGIAN YANG DIPERBAIKI ---
+        // Menggunakan nama method 'insertBuah' yang baru
+        boolean isInserted = dbHelper.insertBuah(nama, jenis);
+        // ---------------------------------
 
         if (isInserted) {
             Toast.makeText(this, "Data berhasil ditambahkan", Toast.LENGTH_SHORT).show();
-            finish();
+            finish(); // Kembali ke halaman daftar buah
         } else {
             Toast.makeText(this, "Gagal menambahkan data", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -1,18 +1,22 @@
 package com.example.projekakhir_andrewijaya;
 
 public class Buah {
-    private String id;
+    private int id;
     private String nama;
     private String jenis;
 
-    public Buah(String id, String nama, String jenis) {
+    public Buah(String nama, String jenis) {
+        this.nama = nama;
+        this.jenis = jenis;
+    }
+
+    public Buah(int id, String nama, String jenis) {
         this.id = id;
         this.nama = nama;
         this.jenis = jenis;
     }
 
-    // Getter methods
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -24,9 +28,8 @@ public class Buah {
         return jenis;
     }
 
-    // Override toString() untuk ditampilkan di TextView
     @Override
     public String toString() {
-        return "ID: " + this.id + "\n" + this.nama + " (" + this.jenis + ")";
+        return "Nama: " + nama + "\nJenis: " + jenis;
     }
 }

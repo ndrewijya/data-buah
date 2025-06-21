@@ -2,95 +2,142 @@ package com.example.projekakhir_andrewijaya;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class BuahAdapter extends ArrayAdapter<Buah> {
+public class BuahAdapter extends RecyclerView.Adapter<BuahAdapter.BuahViewHolder> implements Filterable {
 
     private Context context;
-    private List<Buah> buahList;
+    private List<Buah> listBuah;
+    private List<Buah> listBuahFull;
     private DatabaseHelper dbHelper;
 
     public BuahAdapter(Context context, List<Buah> list) {
-        super(context, R.layout.activity_list_item_buah, list);
         this.context = context;
-        this.buahList = list;
+        this.listBuah = list;
+        this.listBuahFull = new ArrayList<>(list);
         this.dbHelper = new DatabaseHelper(context);
+    }
+
+    // --- PERUBAHAN: Deklarasikan TextView baru di ViewHolder ---
+    public static class BuahViewHolder extends RecyclerView.ViewHolder {
+        TextView tvBuahId, tvBuahNama, tvBuahJenis;
+        Button btnEdit, btnDelete;
+
+        public BuahViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvBuahId = itemView.findViewById(R.id.tv_buah_id);
+            tvBuahNama = itemView.findViewById(R.id.tv_buah_nama);
+            tvBuahJenis = itemView.findViewById(R.id.tv_buah_jenis);
+            btnEdit = itemView.findViewById(R.id.btnEdit);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
+        }
     }
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            // Menggunakan layout item yang sudah Anda buat
-            view = inflater.inflate(R.layout.activity_list_item_buah, null);
+    public BuahViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.activity_list_item_buah, parent, false);
+        return new BuahViewHolder(view);
+    }
+
+    // --- PERUBAHAN: Set teks untuk setiap TextView secara terpisah ---
+    @Override
+    public void onBindViewHolder(@NonNull BuahViewHolder holder, int position) {
+        Buah buah = listBuah.get(position);
+
+        // Mengatur teks untuk setiap TextView
+        holder.tvBuahId.setText("ID: " + buah.getId());
+        holder.tvBuahNama.setText("Nama: " + buah.getNama());
+        holder.tvBuahJenis.setText("Jenis: " + buah.getJenis());
+
+        // Listener untuk tombol Edit dan Delete tetap sama
+        holder.btnEdit.setOnClickListener(v -> {
+            Intent intent = new Intent(context, EditDataActivity.class);
+            intent.putExtra("buah_id", String.valueOf(buah.getId())); // Kirim ID sebagai String
+            intent.putExtra("buah_nama", buah.getNama());
+            intent.putExtra("buah_jenis", buah.getJenis());
+            context.startActivity(intent);
+        });
+
+        holder.btnDelete.setOnClickListener(v -> {
+            new AlertDialog.Builder(context)
+                    .setTitle("Hapus Data")
+                    .setMessage("Yakin ingin menghapus data buah '" + buah.getNama() + "'?")
+                    .setPositiveButton("Ya", (dialog, which) -> {
+                        Integer deletedRows = dbHelper.deleteBuah(String.valueOf(buah.getId()));
+                        if (deletedRows > 0) {
+                            int currentPosition = holder.getAdapterPosition();
+                            listBuahFull.remove(buah);
+                            listBuah.remove(currentPosition);
+                            notifyItemRemoved(currentPosition);
+                            Toast.makeText(context, "Data berhasil dihapus", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Gagal menghapus data", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("Tidak", null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        });
+    }
+
+    // Sisa kode di bawah ini tidak perlu diubah
+    @Override
+    public int getItemCount() {
+        return listBuah.size();
+    }
+
+    public void updateData(ArrayList<Buah> dataBuahBaru) {
+        listBuah.clear();
+        listBuah.addAll(dataBuahBaru);
+        listBuahFull.clear();
+        listBuahFull.addAll(dataBuahBaru);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return buahFilter;
+    }
+
+    private Filter buahFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Buah> filteredList = new ArrayList<>();
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(listBuahFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for (Buah item : listBuahFull) {
+                    if (item.getNama().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
         }
 
-        // Mengambil data buah pada posisi saat ini
-        final Buah buah = buahList.get(position);
-
-        TextView txtInfo = view.findViewById(R.id.txtInfo);
-        Button btnEdit = view.findViewById(R.id.btnEdit);
-        Button btnDelete = view.findViewById(R.id.btnDelete);
-
-        // Menampilkan informasi buah
-        txtInfo.setText(buah.toString());
-
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Membuat intent untuk membuka EditDataActivity
-                Intent intent = new Intent(context, EditDataActivity.class);
-
-                // Mengirim data buah saat ini ke EditDataActivity
-                intent.putExtra("buah_id", buah.getId());
-                intent.putExtra("buah_nama", buah.getNama());
-                intent.putExtra("buah_jenis", buah.getJenis());
-
-                context.startActivity(intent);
-            }
-        });
-
-        // Tombol Delete
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(context)
-                        .setTitle("Hapus Data")
-                        .setMessage("Yakin ingin menghapus data buah '" + buah.getNama() + "'?")
-                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Hapus data dari database
-                                Integer deletedRows = dbHelper.deleteData(buah.getId());
-                                if (deletedRows > 0) {
-                                    // Hapus item dari list dan perbarui tampilan
-                                    buahList.remove(position);
-                                    notifyDataSetChanged();
-                                    Toast.makeText(context, "Data berhasil dihapus", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(context, "Gagal menghapus data", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        })
-                        .setNegativeButton("Tidak", null)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-            }
-        });
-
-        return view;
-    }
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            listBuah.clear();
+            listBuah.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 }

@@ -75,7 +75,7 @@ public class EditDataActivity extends AppCompatActivity {
             return;
         }
 
-        boolean isUpdated = dbHelper.updateData(buahId, namaBaru, jenisBaru);
+        boolean isUpdated = dbHelper.updateBuah(buahId, namaBaru, jenisBaru);
 
         if (isUpdated) {
             Toast.makeText(this, "Data berhasil diperbarui", Toast.LENGTH_SHORT).show();
