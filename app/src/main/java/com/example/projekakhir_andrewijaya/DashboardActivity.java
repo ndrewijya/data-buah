@@ -1,6 +1,7 @@
 package com.example.projekakhir_andrewijaya;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -108,6 +109,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void logoutUser() {
+        // --- TAMBAHAN BARU: Hapus sesi login dari SharedPreferences ---
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear(); // Hapus semua data di SharedPreferences (isLoggedIn dan username)
+        editor.apply();
+        // --- AKHIR TAMBAHAN BARU ---
+
+        // Kode logout Anda yang sudah ada
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
