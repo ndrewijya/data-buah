@@ -57,7 +57,7 @@
                     android:src="@drawable/ic_voice" />
                 <TextView
                     style="@style/DashboardText"
-                    android:text="Suara ke Teks" />
+                    android:text="Konversi Suara" />
             </LinearLayout>
 
         </GridLayout>

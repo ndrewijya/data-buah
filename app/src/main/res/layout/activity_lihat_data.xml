@@ -13,7 +13,7 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="Daftar Data Buah"
+        app:title="Data Buah"
         app:titleTextColor="@android:color/white" />
 
     <LinearLayout

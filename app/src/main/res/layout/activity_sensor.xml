@@ -15,7 +15,7 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="Fitur Sensor"
+        app:title="Sensor Cahaya"
         app:titleTextColor="@android:color/white" />
 
     <LinearLayout
