@@ -105,13 +105,17 @@ public class MapsActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 cariLokasi(query);
-                return true; // event sudah dihandle
+                searchView.clearFocus();
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
+        });
+        searchView.setOnClickListener(v -> {
+            searchView.setIconified(false);
         });
     }
 
