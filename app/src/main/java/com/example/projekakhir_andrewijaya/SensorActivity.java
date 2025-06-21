@@ -1,141 +1,156 @@
 package com.example.projekakhir_andrewijaya;
 
-import android.hardware.Camera;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+import android.view.View;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
+import android.view.MenuItem;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity; // DIUBAH: dari Activity menjadi AppCompatActivity
-import androidx.appcompat.widget.Toolbar;   // DITAMBAHKAN: import untuk Toolbar
 
-import java.io.IOException;
+public class SensorActivity extends AppCompatActivity implements SensorEventListener {
 
-public class SensorActivity extends AppCompatActivity implements SurfaceHolder.Callback, SensorEventListener {
-
-    private SurfaceView cameraPreview;
-    private SurfaceHolder surfaceHolder;
-    private Camera camera;
     private SensorManager sensorManager;
-    private Sensor accelerometer, proximity, gyroscope;
-    private TextView accelText, proxText, gyroText;
+    private Sensor lightSensor;
+    private Sensor accelerometerSensor;
+
+    private TextView tvLightValue, tvLightStatus, tvAccelerometerStatus;
+    private View mainLayout;
+
+    // Variabel untuk deteksi goyangan (shake)
+    private long lastUpdateTime;
+    private float last_x, last_y, last_z;
+    private static final int SHAKE_THRESHOLD = 800;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor);
 
-        // Setup Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar_sensor);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Fitur Sensor");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Inisialisasi komponen lain (tidak berubah)
-        cameraPreview = findViewById(R.id.cameraPreview);
-        accelText = findViewById(R.id.accelText);
-        proxText = findViewById(R.id.proxText);
-        gyroText = findViewById(R.id.gyroText);
-        surfaceHolder = cameraPreview.getHolder();
-        surfaceHolder.addCallback(this);
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        proximity = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+        // Inisialisasi View
+        mainLayout = findViewById(R.id.sensor_layout);
+        tvLightValue = findViewById(R.id.light_sensor_value);
+        tvLightStatus = findViewById(R.id.light_sensor_status);
+        tvAccelerometerStatus = findViewById(R.id.accelerometer_status);
+
+        // Inisialisasi Sensor Manager
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        // Cek dan inisialisasi Sensor Cahaya
+        lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        if (lightSensor == null) {
+            tvLightStatus.setText("Sensor Cahaya tidak tersedia di perangkat ini.");
+        }
+
+        // Cek dan inisialisasi Sensor Akselerometer
+        accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        if (accelerometerSensor == null) {
+            tvAccelerometerStatus.setText("Sensor Gerak tidak tersedia di perangkat ini.");
+        }
     }
 
-    // DITAMBAHKAN: Metode untuk menangani klik pada tombol kembali di Toolbar
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish(); // Menutup activity dan kembali ke Dashboard
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    // ... sisa kode Anda (onResume, onPause, onSensorChanged, dll) tetap sama ...
     @Override
     protected void onResume() {
         super.onResume();
-        if (accelerometer != null) {
-            sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        // Daftarkan listener saat activity kembali aktif
+        if (lightSensor != null) {
+            sensorManager.registerListener(this, lightSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
-        if (proximity != null) {
-            sensorManager.registerListener(this, proximity, SensorManager.SENSOR_DELAY_NORMAL);
-        }
-        if (gyroscope != null) {
-            sensorManager.registerListener(this, gyroscope, SensorManager.SENSOR_DELAY_NORMAL);
+        if (accelerometerSensor != null) {
+            sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
         }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        // Lepaskan listener saat activity dijeda untuk menghemat baterai
         sensorManager.unregisterListener(this);
-        releaseCamera();
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            accelText.setText("Accelerometer:\nX: " + event.values[0]
-                    + "\nY: " + event.values[1]
-                    + "\nZ: " + event.values[2]);
-        } else if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
-            proxText.setText("Proximity: " + event.values[0]);
-        } else if (event.sensor.getType() == Sensor.TYPE_GYROSCOPE) {
-            gyroText.setText("Gyroscope:\nX: " + event.values[0]
-                    + "\nY: " + event.values[1]
-                    + "\nZ: " + event.values[2]);
+        // Cek tipe sensor mana yang memberikan data
+        if (event.sensor.getType() == Sensor.TYPE_LIGHT) {
+            handleLightSensor(event);
+        } else if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            handleAccelerometerSensor(event);
         }
     }
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) { }
+    private void handleLightSensor(SensorEvent event) {
+        float luxValue = event.values[0];
+        tvLightValue.setText("Nilai Lux: " + luxValue + " lx");
 
-    @Override
-    public void surfaceCreated(@NonNull SurfaceHolder holder) {
-        try {
-            camera = Camera.open();
-            camera.setPreviewDisplay(holder);
-            camera.startPreview();
-        } catch (IOException | RuntimeException e) {
-            e.printStackTrace();
+        // Interpretasikan nilai Lux
+        if (luxValue < 50) {
+            tvLightStatus.setText("Kondisi: Sangat Gelap");
+            mainLayout.setBackgroundColor(Color.DKGRAY); // Warna latar abu-abu tua
+        } else if (luxValue < 200) {
+            tvLightStatus.setText("Kondisi: Redup");
+            mainLayout.setBackgroundColor(Color.LTGRAY); // Warna latar abu-abu muda
+        } else if (luxValue < 5000) {
+            tvLightStatus.setText("Kondisi: Normal");
+            mainLayout.setBackgroundColor(Color.WHITE); // Warna latar putih
+        } else {
+            tvLightStatus.setText("Kondisi: Sangat Terang");
+            mainLayout.setBackgroundColor(Color.YELLOW); // Warna latar kuning
         }
     }
 
-    @Override
-    public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
-        if (camera != null) {
-            camera.stopPreview();
-            try {
-                camera.setPreviewDisplay(holder);
-                camera.startPreview();
-            } catch (IOException e) {
-                e.printStackTrace();
+    private void handleAccelerometerSensor(SensorEvent event) {
+        long currentTime = System.currentTimeMillis();
+        // Hanya cek setiap 100 milidetik
+        if ((currentTime - lastUpdateTime) > 100) {
+            long diffTime = (currentTime - lastUpdateTime);
+            lastUpdateTime = currentTime;
+
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+
+            // Hitung kecepatan perubahan akselerasi
+            float speed = Math.abs(x + y + z - last_x - last_y - last_z) / diffTime * 10000;
+
+            if (speed > SHAKE_THRESHOLD) {
+                // Goyangan terdeteksi!
+                tvAccelerometerStatus.setText("Ponsel digoyangkan!");
+                Toast.makeText(this, "Shake Detected!", Toast.LENGTH_SHORT).show();
             }
+
+            last_x = x;
+            last_y = y;
+            last_z = z;
         }
     }
+
 
     @Override
-    public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
-        releaseCamera();
-    }
-
-    private void releaseCamera() {
-        if (camera != null) {
-            camera.stopPreview();
-            camera.release();
-            camera = null;
-        }
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Tidak perlu diubah untuk contoh ini
     }
 }

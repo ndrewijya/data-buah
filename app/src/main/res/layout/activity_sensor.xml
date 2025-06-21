@@ -1,63 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sensor_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".SensorActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_sensor"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
         android:background="?attr/colorPrimary"
-        app:titleTextColor="?attr/colorOnPrimary" />
+        app:title="Fitur Sensor"
+        app:titleTextColor="@android:color/white" />
 
-    <SurfaceView
-        android:id="@+id/cameraPreview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="?android:attr/colorBackground"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:padding="16dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="Sensor Cahaya"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/accelText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Accelerometer: Menunggu data..."
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16sp"
-                android:layout_marginBottom="16dp"/>
+        <TextView
+            android:id="@+id/light_sensor_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nilai Lux: (menunggu data)"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/proxText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Proximity: Menunggu data..."
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16sp"
-                android:layout_marginBottom="16dp"/>
+        <TextView
+            android:id="@+id/light_sensor_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Kondisi: (menunggu data)"
+            android:textSize="16sp"
+            android:textStyle="italic" />
 
-            <TextView
-                android:id="@+id/gyroText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Gyroscope: Menunggu data..."
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="16sp"/>
-        </LinearLayout>
-    </ScrollView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sensor Gerak (Akselerometer)"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/accelerometer_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Goyangkan Ponsel Anda!"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
