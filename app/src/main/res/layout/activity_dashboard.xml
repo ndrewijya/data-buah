@@ -8,6 +8,11 @@
     tools:context=".DashboardActivity"
     tools:openDrawer="start">
 
+    <!--    Anggota Kelompok:-->
+    <!--    1. Andre Wijaya (221011400791)-->
+    <!--    2. Iqbal Isya Fathurrohman (221011401657)-->
+    <!--    3. Novandra Anugrah (221011400778)-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

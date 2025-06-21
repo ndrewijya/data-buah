@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MapsActivity">
 
+    <!--    Anggota Kelompok:-->
+    <!--    1. Andre Wijaya (221011400791)-->
+    <!--    2. Iqbal Isya Fathurrohman (221011401657)-->
+    <!--    3. Novandra Anugrah (221011400778)-->
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_maps"
         android:layout_width="match_parent"

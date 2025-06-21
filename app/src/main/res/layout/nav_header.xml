@@ -7,6 +7,11 @@
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
+    <!--    Anggota Kelompok:-->
+    <!--    1. Andre Wijaya (221011400791)-->
+    <!--    2. Iqbal Isya Fathurrohman (221011401657)-->
+    <!--    3. Novandra Anugrah (221011400778)-->
+
     <ImageButton
         android:id="@+id/button_close_sidebar"
         android:layout_width="wrap_content"
