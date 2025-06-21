@@ -27,8 +27,6 @@ public class RegisterActivity extends AppCompatActivity {
         regPassword = findViewById(R.id.reg_password);
         regButton = findViewById(R.id.reg_button);
 
-// Di dalam RegisterActivity.java, di dalam onCreate()
-
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,8 +37,6 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Username dan Password tidak boleh kosong", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                // PERBAIKAN: Cek dulu apakah username sudah ada
                 if (dbHelper.checkUsernameExists(username)) {
                     Toast.makeText(RegisterActivity.this, "Username '" + username + "' sudah terpakai, silakan gunakan yang lain.", Toast.LENGTH_LONG).show();
                 } else {

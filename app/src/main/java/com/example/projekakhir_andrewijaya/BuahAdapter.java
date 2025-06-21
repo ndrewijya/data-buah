@@ -32,7 +32,7 @@ public class BuahAdapter extends RecyclerView.Adapter<BuahAdapter.BuahViewHolder
         this.dbHelper = new DatabaseHelper(context);
     }
 
-    // --- PERUBAHAN: Deklarasikan TextView baru di ViewHolder ---
+    //PERUBAHAN: Deklarasi TextView baru di ViewHolder
     public static class BuahViewHolder extends RecyclerView.ViewHolder {
         TextView tvBuahId, tvBuahNama, tvBuahJenis;
         Button btnEdit, btnDelete;
@@ -54,7 +54,6 @@ public class BuahAdapter extends RecyclerView.Adapter<BuahAdapter.BuahViewHolder
         return new BuahViewHolder(view);
     }
 
-    // --- PERUBAHAN: Set teks untuk setiap TextView secara terpisah ---
     @Override
     public void onBindViewHolder(@NonNull BuahViewHolder holder, int position) {
         Buah buah = listBuah.get(position);
@@ -64,10 +63,10 @@ public class BuahAdapter extends RecyclerView.Adapter<BuahAdapter.BuahViewHolder
         holder.tvBuahNama.setText("Nama: " + buah.getNama());
         holder.tvBuahJenis.setText("Jenis: " + buah.getJenis());
 
-        // Listener untuk tombol Edit dan Delete tetap sama
+        // Listener untuk tombol Edit dan Delete
         holder.btnEdit.setOnClickListener(v -> {
             Intent intent = new Intent(context, EditDataActivity.class);
-            intent.putExtra("buah_id", String.valueOf(buah.getId())); // Kirim ID sebagai String
+            intent.putExtra("buah_id", String.valueOf(buah.getId()));
             intent.putExtra("buah_nama", buah.getNama());
             intent.putExtra("buah_jenis", buah.getJenis());
             context.startActivity(intent);
@@ -95,7 +94,6 @@ public class BuahAdapter extends RecyclerView.Adapter<BuahAdapter.BuahViewHolder
         });
     }
 
-    // Sisa kode di bawah ini tidak perlu diubah
     @Override
     public int getItemCount() {
         return listBuah.size();

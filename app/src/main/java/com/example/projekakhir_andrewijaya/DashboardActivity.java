@@ -21,7 +21,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     private DrawerLayout drawerLayout;
 
-    // PERBAIKAN: Deklarasikan hanya 3 tombol yang ada di layout
     private LinearLayout sensorButton, mapsButton, voiceToTextButton;
 
     @Override
@@ -80,7 +79,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         int itemId = item.getItemId();
 
         if (itemId == R.id.nav_dashboard) {
-            // Tetap di halaman ini
         } else if (itemId == R.id.nav_sensor) {
             startActivity(new Intent(this, SensorActivity.class));
         } else if (itemId == R.id.nav_lihat_data_buah) {
@@ -109,14 +107,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void logoutUser() {
-        // --- TAMBAHAN BARU: Hapus sesi login dari SharedPreferences ---
+
         SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear(); // Hapus semua data di SharedPreferences (isLoggedIn dan username)
         editor.apply();
-        // --- AKHIR TAMBAHAN BARU ---
 
-        // Kode logout Anda yang sudah ada
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

@@ -21,13 +21,9 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
     private SensorManager sensorManager;
     private Sensor lightSensor;
     private Sensor accelerometerSensor;
-
-    // --- PERUBAHAN: Deklarasikan SEMUA TextView ---
     private TextView tvLightTitle, tvLightValue, tvLightStatus;
     private TextView tvAccelerometerTitle, tvAccelerometerStatus;
     private View mainLayout;
-
-    // Variabel untuk deteksi goyangan (shake)
     private long lastUpdateTime;
     private float last_x, last_y, last_z;
     private static final int SHAKE_THRESHOLD = 800;
@@ -43,15 +39,12 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // --- PERUBAHAN: Inisialisasi SEMUA TextView ---
         mainLayout = findViewById(R.id.sensor_layout);
         tvLightTitle = findViewById(R.id.light_sensor_title);
         tvLightValue = findViewById(R.id.light_sensor_value);
         tvLightStatus = findViewById(R.id.light_sensor_status);
         tvAccelerometerTitle = findViewById(R.id.accelerometer_title);
         tvAccelerometerStatus = findViewById(R.id.accelerometer_status);
-
-        // Inisialisasi Sensor Manager
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
@@ -91,7 +84,6 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         }
     }
 
-    // --- PERUBAHAN UTAMA ADA DI SINI ---
     private void handleLightSensor(SensorEvent event) {
         float luxValue = event.values[0];
         tvLightValue.setText("Nilai Lux: " + luxValue + " lx");
@@ -99,23 +91,22 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         if (luxValue < 50) {
             tvLightStatus.setText("Kondisi: Sangat Gelap");
             mainLayout.setBackgroundColor(Color.DKGRAY);
-            updateTextColors(Color.WHITE); // Teks menjadi PUTIH
+            updateTextColors(Color.WHITE);
         } else if (luxValue < 200) {
             tvLightStatus.setText("Kondisi: Redup");
             mainLayout.setBackgroundColor(Color.LTGRAY);
-            updateTextColors(Color.BLACK); // Teks menjadi HITAM
+            updateTextColors(Color.BLACK);
         } else if (luxValue < 5000) {
             tvLightStatus.setText("Kondisi: Normal");
             mainLayout.setBackgroundColor(Color.WHITE);
-            updateTextColors(Color.BLACK); // Teks menjadi HITAM
+            updateTextColors(Color.BLACK);
         } else {
             tvLightStatus.setText("Kondisi: Sangat Terang");
             mainLayout.setBackgroundColor(Color.YELLOW);
-            updateTextColors(Color.BLACK); // Teks menjadi HITAM
+            updateTextColors(Color.BLACK);
         }
     }
 
-    // --- METHOD BARU UNTUK MENGUBAH WARNA SEMUA TEKS ---
     private void updateTextColors(int color) {
         tvLightTitle.setTextColor(color);
         tvLightValue.setTextColor(color);
@@ -149,7 +140,6 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Tidak perlu diubah
     }
 
     @Override

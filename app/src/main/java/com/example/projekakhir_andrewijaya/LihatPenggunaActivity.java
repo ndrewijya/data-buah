@@ -58,7 +58,6 @@ public class LihatPenggunaActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Refresh data saat kembali ke halaman ini
         if (penggunaAdapter != null) {
             penggunaAdapter.updateData(databaseHelper.getAllUsers());
         }

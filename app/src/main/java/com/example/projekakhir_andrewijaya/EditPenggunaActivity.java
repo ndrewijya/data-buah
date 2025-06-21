@@ -35,7 +35,6 @@ public class EditPenggunaActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Inisialisasi komponen lain
         dbHelper = new DatabaseHelper(this);
         tvUsernameInfo = findViewById(R.id.tv_username_info);
         etEditPassword = findViewById(R.id.et_edit_password_pengguna);
@@ -59,7 +58,7 @@ public class EditPenggunaActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish(); // Kembali ke halaman sebelumnya
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

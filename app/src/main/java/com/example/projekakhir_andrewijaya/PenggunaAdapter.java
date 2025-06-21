@@ -31,14 +31,12 @@ public class PenggunaAdapter extends RecyclerView.Adapter<PenggunaAdapter.Penggu
 
     public static class PenggunaViewHolder extends RecyclerView.ViewHolder {
         TextView tvPenggunaId, tvPenggunaUsername;
-        // Tambahkan referensi untuk tombol
         Button btnEditPassword, btnDeletePengguna;
 
         public PenggunaViewHolder(@NonNull View itemView) {
             super(itemView);
             tvPenggunaId = itemView.findViewById(R.id.tv_pengguna_id);
             tvPenggunaUsername = itemView.findViewById(R.id.tv_pengguna_username);
-            // Inisialisasi tombol
             btnEditPassword = itemView.findViewById(R.id.btn_edit_password);
             btnDeletePengguna = itemView.findViewById(R.id.btn_delete_pengguna);
         }
@@ -57,7 +55,6 @@ public class PenggunaAdapter extends RecyclerView.Adapter<PenggunaAdapter.Penggu
         holder.tvPenggunaId.setText("ID: " + pengguna.getId());
         holder.tvPenggunaUsername.setText("Username: " + pengguna.getUsername());
 
-        // --- FUNGSI UNTUK TOMBOL HAPUS ---
         holder.btnDeletePengguna.setOnClickListener(v -> {
             new AlertDialog.Builder(context)
                     .setTitle("Hapus Pengguna")
@@ -78,7 +75,6 @@ public class PenggunaAdapter extends RecyclerView.Adapter<PenggunaAdapter.Penggu
                     .show();
         });
 
-        // --- FUNGSI UNTUK TOMBOL EDIT PASSWORD ---
         holder.btnEditPassword.setOnClickListener(v -> {
             showEditPasswordDialog(pengguna);
         });
@@ -94,14 +90,12 @@ public class PenggunaAdapter extends RecyclerView.Adapter<PenggunaAdapter.Penggu
         inputPassword.setHint("Masukkan password baru");
         builder.setView(inputPassword);
 
-        // Atur tombol "Simpan"
         builder.setPositiveButton("Simpan", (dialog, which) -> {
             String newPassword = inputPassword.getText().toString().trim();
             if (newPassword.isEmpty()) {
                 Toast.makeText(context, "Password tidak boleh kosong", Toast.LENGTH_SHORT).show();
                 return;
             }
-            // Panggil method updateUser dari DatabaseHelper
             boolean isUpdated = dbHelper.updateUser(String.valueOf(pengguna.getId()), newPassword);
             if(isUpdated) {
                 Toast.makeText(context, "Password berhasil diperbarui", Toast.LENGTH_SHORT).show();

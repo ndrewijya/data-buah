@@ -33,8 +33,6 @@ public class MapsActivity extends AppCompatActivity {
     private MapView mapView;
     private SearchView searchView;
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
-
-    // List untuk menampung semua lokasi toko buah
     private List<TokoBuah> daftarTokoBuah = new ArrayList<>();
 
     @Override
@@ -65,10 +63,7 @@ public class MapsActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_COARSE_LOCATION
         });
 
-        // Tampilkan semua marker toko buah
         tampilkanSemuaToko();
-
-        // Setup fungsi pencarian
         setupSearchView();
     }
 
@@ -80,7 +75,6 @@ public class MapsActivity extends AppCompatActivity {
     }
 
     private void tampilkanSemuaToko() {
-        // Jangan tampilkan apa-apa jika list kosong
         if (daftarTokoBuah.isEmpty()) return;
 
         ArrayList<GeoPoint> points = new ArrayList<>();
@@ -89,13 +83,11 @@ public class MapsActivity extends AppCompatActivity {
             points.add(tokoPoint);
             addMarker(tokoPoint, toko.getNama(), "Toko Buah");
         }
-
-        // Hitung bounding box agar semua marker terlihat
         BoundingBox boundingBox = BoundingBox.fromGeoPoints(points);
 
         // Lakukan zoom setelah layout peta siap
         mapView.post(() -> {
-            mapView.zoomToBoundingBox(boundingBox, true, 100); // 100px padding
+            mapView.zoomToBoundingBox(boundingBox, true, 100);
         });
     }
 
@@ -124,17 +116,14 @@ public class MapsActivity extends AppCompatActivity {
         List<Address> addressList;
 
         try {
-            // Dapatkan hasil pencarian, maks 1 hasil
             addressList = geocoder.getFromLocationName(namaLokasi, 1);
             if (addressList != null && !addressList.isEmpty()) {
                 Address address = addressList.get(0);
                 GeoPoint geoPoint = new GeoPoint(address.getLatitude(), address.getLongitude());
 
-                // Pindahkan peta ke lokasi hasil pencarian dan zoom in
                 mapView.getController().animateTo(geoPoint);
                 mapView.getController().setZoom(18.0);
 
-                // Tambahkan marker baru untuk hasil pencarian
                 addMarker(geoPoint, namaLokasi, address.getAddressLine(0));
 
                 Toast.makeText(this, "Lokasi ditemukan: " + address.getAddressLine(0), Toast.LENGTH_LONG).show();
@@ -200,7 +189,6 @@ public class MapsActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Izin diberikan, mungkin bisa refresh sesuatu jika perlu
             } else {
                 Toast.makeText(this, "Izin lokasi ditolak, beberapa fitur mungkin tidak bekerja.", Toast.LENGTH_LONG).show();
             }

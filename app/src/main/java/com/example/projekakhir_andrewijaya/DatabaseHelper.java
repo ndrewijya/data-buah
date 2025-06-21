@@ -12,14 +12,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "AplikasiData.db";
     public static final int DATABASE_VERSION = 1;
-
-    // Definisi Tabel PENGGUNA (USERS)
     public static final String TABLE_USERS = "users";
     public static final String COL_USER_ID = "ID";
     public static final String COL_USERNAME = "username";
     public static final String COL_PASSWORD = "password";
-
-    // Definisi Tabel BUAH
     public static final String TABLE_BUAH = "tabel_buah";
     public static final String COL_BUAH_ID = "ID_BUAH";
     public static final String COL_BUAH_NAMA = "NAMA_BUAH";
@@ -76,7 +72,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count > 0;
     }
 
-    // METHOD YANG HILANG SEBELUMNYA, SEKARANG DIKEMBALIKAN
     public boolean checkUsernameExists(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_USERS + " WHERE " + COL_USERNAME + " = ?", new String[]{username});
@@ -124,10 +119,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // =================================================================
     // --- SEMUA METODE UNTUK BUAH (CRUD) ---
     // =================================================================
-    
+
     public boolean checkBuahExists(String nama, String jenis) {
         SQLiteDatabase db = this.getReadableDatabase();
-        // Kita akan membuat pencarian tidak case-sensitive dengan mengubah semuanya ke huruf besar
         String query = "SELECT * FROM " + TABLE_BUAH + " WHERE UPPER(" + COL_BUAH_NAMA + ") = ? AND UPPER(" + COL_BUAH_JENIS + ") = ?";
         Cursor cursor = db.rawQuery(query, new String[]{nama.toUpperCase(), jenis.toUpperCase()});
 

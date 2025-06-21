@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText usernameEditText, passwordEditText;
     private Button loginButton, registerButton;
     private DatabaseHelper dbHelper;
-
-    // --- TAMBAHAN BARU: Kunci untuk SharedPreferences ---
     public static final String SHARED_PREFS = "AplikasiDataPrefs";
     public static final String IS_LOGGED_IN_KEY = "isLoggedIn";
     public static final String USERNAME_KEY = "username";
@@ -33,10 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // --- LOGIKA 1: Cek sesi login di paling awal ---
         checkLoginSession();
-
-        // Setelah pengecekan, baru tampilkan layout jika belum login
         setContentView(R.layout.activity_main);
 
         dbHelper = new DatabaseHelper(this);
@@ -63,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 if (isUserValid) {
                     Toast.makeText(getApplicationContext(), "Login Berhasil", Toast.LENGTH_SHORT).show();
                     showLoginNotification(username);
-
-                    // --- LOGIKA 2: Simpan sesi login saat berhasil ---
                     saveLoginSession(username);
 
                     startActivity(new Intent(MainActivity.this, DashboardActivity.class));
@@ -94,24 +87,18 @@ public class MainActivity extends AppCompatActivity {
         if (isLoggedIn) {
             Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
             startActivity(intent);
-            finish(); // Wajib dipanggil agar activity ini ditutup dan tidak bisa kembali
+            finish();
         }
-        // Jika tidak login, biarkan method onCreate berjalan normal
     }
 
-    /**
-     * --- METHOD BARU ---
-     * Menyimpan status isLoggedIn = true dan username ke SharedPreferences.
-     */
     private void saveLoginSession(String username) {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(IS_LOGGED_IN_KEY, true);
-        editor.putString(USERNAME_KEY, username); // Simpan juga username jika ingin digunakan nanti
+        editor.putString(USERNAME_KEY, username);
         editor.apply();
     }
 
-    // --- Kode Notifikasi Anda (TIDAK DIUBAH) ---
     private void requestNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)

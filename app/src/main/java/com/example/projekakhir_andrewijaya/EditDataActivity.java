@@ -33,13 +33,11 @@ public class EditDataActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Inisialisasi komponen lain
         dbHelper = new DatabaseHelper(this);
         etEditNamaBuah = findViewById(R.id.et_edit_nama_buah);
         etEditJenisBuah = findViewById(R.id.et_edit_jenis_buah);
         btnUpdate = findViewById(R.id.btn_update);
 
-        // Mengambil data dari intent (tidak berubah)
         Intent intent = getIntent();
         buahId = intent.getStringExtra("buah_id");
         String namaLama = intent.getStringExtra("buah_nama");
@@ -60,7 +58,7 @@ public class EditDataActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish(); // Kembali ke halaman sebelumnya
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

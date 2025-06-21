@@ -24,7 +24,7 @@ public class VoiceToTextActivity extends AppCompatActivity {
 
     private ImageButton micButton, btnCopyText;
     private TextView resultTextView, tvHasilTitle;
-    private View cardResult; // Menggunakan View untuk mereferensikan CardView
+    private View cardResult;
 
     private static final int RECOGNIZER_RESULT = 1;
 
@@ -40,7 +40,7 @@ public class VoiceToTextActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Inisialisasi semua komponen UI
+        // Inisialisasi komponen UI
         micButton = findViewById(R.id.btn_bicara);
         resultTextView = findViewById(R.id.tv_hasil_suara);
         btnCopyText = findViewById(R.id.btn_copy_text);
@@ -60,7 +60,7 @@ public class VoiceToTextActivity extends AppCompatActivity {
             }
         });
 
-        // Menambahkan fungsi untuk tombol copy
+        //fungsi untuk tombol copy
         btnCopyText.setOnClickListener(v -> {
             copyToClipboard(resultTextView.getText().toString());
         });
@@ -76,12 +76,10 @@ public class VoiceToTextActivity extends AppCompatActivity {
                 String recognizedText = result.get(0);
                 resultTextView.setText(recognizedText);
 
-                // Tampilkan card hasil dan judulnya setelah ada hasil
                 tvHasilTitle.setVisibility(View.VISIBLE);
                 cardResult.setVisibility(View.VISIBLE);
             }
         } else {
-            // Beri feedback jika tidak ada suara yang dikenali
             Toast.makeText(this, "Tidak ada suara yang dikenali, silakan coba lagi.", Toast.LENGTH_SHORT).show();
         }
     }
@@ -98,7 +96,6 @@ public class VoiceToTextActivity extends AppCompatActivity {
         Toast.makeText(this, "Teks berhasil disalin!", Toast.LENGTH_SHORT).show();
     }
 
-    // Fungsi untuk tombol kembali di Toolbar
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
