@@ -61,6 +61,18 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Register"
-        android:textSize="18sp"/>
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/tv_kembali_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Batal"
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:textColor="?attr/colorPrimary"
+        android:clickable="true"
+        android:focusable="true"/>
 
 </LinearLayout>

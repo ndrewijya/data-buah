@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import android.widget.TextView;
 
 /*Anggota Kelompok:
  * 1. Andre Wijaya (221011400791)
@@ -19,6 +20,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText regUsername, regPassword;
     private Button regButton;
+    private TextView tvKembaliLogin;
     private DatabaseHelper dbHelper;
 
     @Override
@@ -31,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         regUsername = findViewById(R.id.reg_username);
         regPassword = findViewById(R.id.reg_password);
         regButton = findViewById(R.id.reg_button);
+        tvKembaliLogin = findViewById(R.id.tv_kembali_login);
 
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +59,13 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, "Registrasi Gagal, coba lagi.", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+
+        tvKembaliLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
